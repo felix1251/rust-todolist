@@ -21,7 +21,7 @@ async fn index() -> String {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let app_data = web::Data::new(AppState {
-        todolist_entries: Mutex::new(Vec::new(vec![]))
+        todolist_entries: Mutex::new(vec![])
     });
 
     HttpServer::new(move || {
