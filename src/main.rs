@@ -2,10 +2,12 @@ use actix_web::{get, web, App, HttpServer};
 use serde::{Deserialize, Serialize};
 use std::sync::Mutex;
 
+//define app state
 struct AppState {
     todolist_entries: Mutex<Vec<TodolistEntry>>
 }
 
+// define todo list entries
 #[derive(Serialize, Deserialize, Clone)]
 struct TodolistEntry {
     id: i32,
@@ -13,11 +15,13 @@ struct TodolistEntry {
     title: String,
 }
 
+//home path and serves as health checker
 #[get("/")]
 async fn index() -> String {
     "this is a health check".to_string()
 }
 
+//main actix web server to run
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let app_data = web::Data::new(AppState {
