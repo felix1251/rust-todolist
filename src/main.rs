@@ -1,5 +1,5 @@
 use actix_web::{get, web, App, HttpServer};
-use serde::{Deserialize, Serializer};
+use serde::{Deserialize, Serialize};
 use std::sync::Mutex;
 
 struct AppState {
@@ -25,10 +25,11 @@ async fn main() -> std::io::Result<()> {
     });
 
     HttpServer::new(move || {
-        App::new(app_data.clone())
-        .service(index)
+        App::new()
+            .app_data(app_data.clone())
+            .service(index)
     })
-    .bind("125.0.0.1", 8080)?
+    .bind(("127.0.0.1", 8080))?
     .run()
     .await
 }
